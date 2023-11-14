@@ -16,15 +16,15 @@ const testSumToBe9 = (value: any) => {
   return result
 }
 
-const ruleSumMustBe9 = {
-  name: 'sumMustBe9',
+const makeRuleSumMustBe9 = (i: number) => ({
+  name: `sumMustBe9-${i}`,
   test: testSumToBe9,
   message: 'please input two numbers whose sum is 9'
-}
+})
 
 const rules = reactive({
   equations: {
-    0: ruleSumMustBe9
+    0: makeRuleSumMustBe9(0)
   }
 })
 const options = reactive({ autoTouch: true })
@@ -46,7 +46,7 @@ const message = computed(() =>
 )
 
 const handleAddClick = (index: number) => {
-  (rules.equations as any)[String(data.equations.length)] = ruleSumMustBe9
+  (rules.equations as any)[String(data.equations.length)] = makeRuleSumMustBe9(data.equations.length)
   data.equations.splice(index + 1, 0, structuredClone(initialData))
 }
 
